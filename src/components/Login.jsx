@@ -1,23 +1,33 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Navigate } from 'react-router-dom';
+import { login } from '../services/authService';
 
-const Login = ({ onLogin }) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+const Login = () => {
     const [redirectToHome, setRedirectToHome] = useState(false);
+    const [data, setData] = useState({
+        email: '',
+        password: '',
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        console.log(name)
+        setData({
+            ...data,
+            [name]: value,
+        });
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(email)
-        console.log(password)
 
         try {
-            const response = await axios.post('http://localhost:8000/api/v1/auth/login', { email, password });
-            console.log(response)
-            const token = response.data.token;
+
+            const token = await login(data);
             console.log(token)
+
             localStorage.setItem('token', token);
+
             setRedirectToHome(true)
         } catch (error) {
             console.error('Error de autenticación', error);
@@ -35,8 +45,9 @@ const Login = ({ onLogin }) => {
                 <input
                     type="email"
                     id="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    name="email"
+                    value={data.email}
+                    onChange={handleChange}
                     required
                 />
             </div>
@@ -45,8 +56,9 @@ const Login = ({ onLogin }) => {
                 <input
                     type="password"
                     id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    name="password"
+                    value={data.password}
+                    onChange={handleChange}
                     required
                 />
             </div>

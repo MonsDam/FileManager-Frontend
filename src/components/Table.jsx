@@ -7,7 +7,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import axios from 'axios';
+import { getAllFiles } from '../services/fileService';
+import DeleteButton from './actions/DeleteButton';
+import ViewButton from './actions/ViewButton';
 
 
 const columns = [
@@ -34,6 +36,12 @@ const columns = [
         align: 'right',
         format: (value) => value.toFixed(2),
     },
+    {
+        id: 'actions',
+        label: 'Actions',
+        minWidth: 100,
+        align: 'center'
+    },
 ];
 
 
@@ -49,17 +57,11 @@ export default function FilesTable() {
             console.error('No se encontró un token válido');
             return;
         }
-
         try {
-            const response = await axios.get('http://localhost:8001/api/v1/files', {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-            console.log('response', response.data)
-            setFiles(response.data.files)
+            const filesData = await getAllFiles(token);
+            setFiles(filesData);
+            console.log(filesData)
         } catch (error) {
-            console.log(error.response.data)
             console.error('Error al obtener los archivos', error);
         }
     };
@@ -104,6 +106,14 @@ export default function FilesTable() {
                                 return (
                                     <TableRow hover role="checkbox" tabIndex={-1} key={file._id}>
                                         {columns.map((column) => {
+                                            if (column.id === 'actions') {
+                                                return (
+                                                    <TableCell key={column.id} align={column.align}>
+                                                        <ViewButton id={file._id} />
+                                                        <DeleteButton id={file._id} />
+                                                    </TableCell>
+                                                );
+                                            }
                                             const value = file[column.id];
                                             return (
                                                 <TableCell key={column.id} align={column.align}>
