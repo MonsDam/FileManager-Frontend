@@ -25,7 +25,7 @@ export default function DeleteButton({ id }) {
         <div>
 
             <IconButton aria-label="delete" size="small" onClick={handleOpen}>
-                <DeleteIcon fontSize="small" />
+                <DeleteIcon color="error" fontSize="small" />
             </IconButton>
             <Dialog
                 open={open}
@@ -45,8 +45,8 @@ export default function DeleteButton({ id }) {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    <Button type="submit">Subscribe</Button>
+                    <Button onClick={handleClose}>Cancelar</Button>
+                    <Button color="error" type="submit">Eliminar</Button>
                 </DialogActions>
             </Dialog>
         </div>

@@ -2,6 +2,8 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { Box, IconButton, Modal, Typography } from '@mui/material';
 import { useState } from 'react';
 import { getOneFile } from '../../services/fileService';
+import { formatFileSize } from '../../helpers/formatFileSize';
+import { formatDate } from '../../helpers/formatDate';
 
 const style = {
     position: 'absolute',
@@ -10,7 +12,7 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: 400,
     bgcolor: 'background.paper',
-    border: '2px solid #000',
+    // border: '2px solid #000',
     boxShadow: 24,
     p: 4,
 };
@@ -42,7 +44,7 @@ export default function ViewButton({ id }) {
     return (
         <div>
             <IconButton aria-label="ver" size="small" onClick={handleGetOneFile} >
-                <RemoveRedEyeIcon fontSize="small" />
+                <RemoveRedEyeIcon color='primary' fontSize="small" />
             </IconButton>
             <Modal
                 open={open}
@@ -51,14 +53,17 @@ export default function ViewButton({ id }) {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                    <Typography className='text-gray-800' id="modal-modal-title" variant="h6" component="h2">
                         Detalles del archivo
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         {file ? (
-                            <>
-                                {file?.fileName}
-                            </>
+                            <div className='grid grid-cols-1 gap-4'>
+                                <span>Nombre: {file?.originalName}</span>
+                                <span>Tipo de archivo: {file?.fileType}</span>
+                                <span>Tamaño: {formatFileSize(file?.fileSize)}</span>
+                                <span>Fecha de carga : {formatDate(file?.uploadedAt)} </span>
+                            </div>
 
                         ) : (
                             <>

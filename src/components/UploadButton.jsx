@@ -3,6 +3,7 @@ import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import useFileUploader from '../hooks/useFileUploader';
+import CircularUploadProgress from './CircularProgress';
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -36,8 +37,7 @@ export default function UploadButton({ onUpload }) {
 
     console.log(file)
     return (
-        <div>
-
+        <div className='grid grid-cols-1 gap-4 '>
             <Button
                 component="label"
                 role={undefined}
@@ -45,18 +45,16 @@ export default function UploadButton({ onUpload }) {
                 tabIndex={-1}
                 startIcon={<CloudUploadIcon />}
             >
-                Upload files
+                {file ? file.name : 'Selecciona un archivo'}
                 <VisuallyHiddenInput
                     type="file"
                     onChange={handleFileChange}
                     multiple
                 />
             </Button>
-            {file && <p>Archivo seleccionado: {file.name}</p>}
-            {uploadProgress > 0 && <p>Progreso: {uploadProgress}%</p>}
-            <button type="button" onClick={handleUpload}>
-                Subir archivo
-            </button>
+            {file && <span className='text-gray-700 ' >Archivo seleccionado: {file.name}</span>}
+            {uploadProgress > 0 && <CircularUploadProgress value={uploadProgress} />}
+            <Button variant="contained" type="button" onClick={handleUpload} >Subir archivo</Button>
         </div>
     );
 }

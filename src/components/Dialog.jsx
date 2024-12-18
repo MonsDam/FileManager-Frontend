@@ -24,13 +24,15 @@ export default function FormDialog() {
         handleClose();
     };
     return (
-        <React.Fragment>
-            <Button variant="outlined" onClick={handleClickOpen}>
-                Open form dialog
+        <div className='flex justify-end mb-4 ' >
+            <Button variant="contained" onClick={handleClickOpen}>
+                Agregar Archivo
             </Button>
             <Dialog
                 open={open}
                 onClose={handleClose}
+                fullWidth
+                maxWidth={'xs'}
                 PaperProps={{
                     component: 'form',
                     onSubmit: (event) => {
@@ -46,10 +48,10 @@ export default function FormDialog() {
                     <UploadButton onUpload={handleUploadComplete} />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    {/* <Button type="submit">Subscribe</Button> */}
+                    <Button onClick={handleClose}>Cancelar</Button>
                 </DialogActions>
             </Dialog>
-        </React.Fragment>
+        </div>
+
     );
 }

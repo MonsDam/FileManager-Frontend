@@ -1,18 +1,17 @@
 import React from 'react';
 import FilesTable from '../components/Table';
 import FormDialog from '../components/Dialog';
-import LogoutButton from '../components/actions/LogoutButton';
+import AppBarHome from '../components/AppBar';
 
-const Home = () => {
+
+export default function Home() {
     return (
-        <div>
-            <h1>Bienvenido a la página de inicio</h1>
-            <LogoutButton />
+        <div className='min-h-screen bg-gray-100 p-8' >
+            <AppBarHome />
+            {/* <h1 className='text-4xl text-center ' >Bienvenido a la página de inicio</h1> */}
+            <h1 className='text-4xl text-center mt-4 ' >Listado de Archivos</h1>
             <FormDialog />
             <FilesTable />
         </div>
-
-    );
-};
-
-export default Home;
+    )
+}

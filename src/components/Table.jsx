@@ -10,37 +10,28 @@ import TableRow from '@mui/material/TableRow';
 import { getAllFiles } from '../services/fileService';
 import DeleteButton from './actions/DeleteButton';
 import ViewButton from './actions/ViewButton';
+import { formatFileSize } from '../helpers/formatFileSize';
 
 
 const columns = [
-    { id: 'fileName', label: 'fileName', minWidth: 170 },
-    { id: 'filePath', label: 'filePath', minWidth: 100 },
+    { id: 'originalName', label: 'Nombre del Archivo', minWidth: 170 },
     {
         id: 'fileSize',
-        label: 'fileSize',
+        label: 'Tamaño',
         minWidth: 170,
-        align: 'right',
-        format: (value) => value.toLocaleString('en-US'),
+        format: (value) => formatFileSize(value),
     },
+    { id: 'filePath', label: 'Ruta de almacenamiento', minWidth: 100, },
     {
         id: 'fileType',
-        label: 'fileType',
+        label: 'Tipo',
         minWidth: 170,
-        align: 'right',
         format: (value) => value.toLocaleString('en-US'),
-    },
-    {
-        id: 'originalName',
-        label: 'originalName',
-        minWidth: 170,
-        align: 'right',
-        format: (value) => value.toFixed(2),
     },
     {
         id: 'actions',
-        label: 'Actions',
+        label: 'Acciones',
         minWidth: 100,
-        align: 'center'
     },
 ];
 
@@ -86,15 +77,18 @@ export default function FilesTable() {
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
             <TableContainer sx={{ maxHeight: 440 }}>
                 <Table stickyHeader aria-label="sticky table">
-                    <TableHead>
-                        <TableRow>
+                    <TableHead  >
+                        <TableRow >
                             {columns.map((column) => (
                                 <TableCell
                                     key={column.id}
                                     align={column.align}
                                     style={{ minWidth: column.minWidth }}
                                 >
-                                    {column.label}
+                                    <span className='font-medium text-lg text-gray-600'>
+
+                                        {column.label.charAt(0).toUpperCase() + column.label.slice(1)}
+                                    </span>
                                 </TableCell>
                             ))}
                         </TableRow>
@@ -109,8 +103,10 @@ export default function FilesTable() {
                                             if (column.id === 'actions') {
                                                 return (
                                                     <TableCell key={column.id} align={column.align}>
-                                                        <ViewButton id={file._id} />
-                                                        <DeleteButton id={file._id} />
+                                                        <span className='flex'>
+                                                            <ViewButton id={file._id} />
+                                                            <DeleteButton id={file._id} />
+                                                        </span>
                                                     </TableCell>
                                                 );
                                             }
