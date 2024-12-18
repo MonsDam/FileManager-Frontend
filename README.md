@@ -1,8 +1,8 @@
-Proyecto Vite + React (File Syteme Managment)
+#Proyecto Vite + React (File Syteme Managment)
 
 Este documento describe los pasos necesarios para instalar y configurar el proyecto de Gestion de Archivos utilizando Vite.
 
-Requisitos previos
+#Requisitos previos
 
 Antes de comenzar, asegúrate de tener instalados los siguientes programas:
 
@@ -16,6 +16,8 @@ Para verificar si están instalados, ejecuta los siguientes comandos en tu termi
 
 node -v
 npm -v
+
+#Instalacion
 
 1. Clona el repositorio:
    ```bash
