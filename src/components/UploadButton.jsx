@@ -54,6 +54,7 @@ export default function UploadButton({ onUpload }) {
             const result = await uploadFile();
             onUpload(result);  // Ejecuta la función `onUpload` pasada como prop
         } catch (error) {
+            alert(error.message)
             console.error(error.message);
         }
     };

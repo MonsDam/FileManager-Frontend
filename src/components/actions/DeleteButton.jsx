@@ -44,7 +44,9 @@ export default function DeleteButton({ id }) {
             console.log(token);
             const response = await deleteFile(id, token);
             console.log(response);
+            alert('Archivo eliminado con exito');
         } catch (error) {
+            alert('Error al eliminar el archivo')
             console.error('Error al eliminar el archivo', error);
         }
     };

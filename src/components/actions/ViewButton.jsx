@@ -53,6 +53,7 @@ export default function ViewButton({ id }) {
       const fileData = await getOneFile(id, token);
       setFile(fileData);
     } catch (error) {
+        alert("Error al obtener los archivos")
       console.error("Error al obtener los archivos", error);
     }
   };

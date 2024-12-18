@@ -39,7 +39,7 @@ export default function Register() {
             // Llama al servicio de registro con los datos del usuario
             const response = await register(userData);
             console.log(response.message); // Muestra el mensaje de éxito en la consola
-
+            alert(response.message)
             // Redirige al usuario a la página de inicio de sesión después de un registro exitoso
             navigate('/login');
         } catch (err) {
