@@ -39,7 +39,7 @@ export default function Register() {
             // Llama al servicio de registro con los datos del usuario
             const response = await register(userData);
             console.log(response.message); // Muestra el mensaje de éxito en la consola
-            alert(response.message)
+            alert('Usuario registrado exitosamente')
             // Redirige al usuario a la página de inicio de sesión después de un registro exitoso
             navigate('/login');
         } catch (err) {
@@ -51,7 +51,6 @@ export default function Register() {
     return (
         <div className='flex items-center justify-center min-h-screen bg-gray-100'>
             {/* Muestra el mensaje de error si existe */}
-            {error && <p style={{ color: 'red' }}>{error}</p>}
 
             {/* Formulario de registro */}
             <form onSubmit={handleSubmit}>
@@ -79,7 +78,7 @@ export default function Register() {
                         variant="outlined"
                         margin="normal"
                         onChange={handleChange} // Actualiza el estado con el correo electrónico
-                    />
+                        />
 
                     {/* Campo de contraseña */}
                     <TextField
@@ -90,7 +89,7 @@ export default function Register() {
                         variant="outlined"
                         margin="normal"
                         onChange={handleChange} // Actualiza el estado con la contraseña ingresada
-                    />
+                        />
 
                     {/* Enlace para redirigir a la página de inicio de sesión */}
                     <div className="flex gap-2 justify-center mb-4">
@@ -100,6 +99,7 @@ export default function Register() {
                         </span>
                     </div>
 
+                        {error && <p style={{ color: 'red' }}>{error}</p>}
                     {/* Botón para enviar el formulario de registro */}
                     <Button variant="contained" type="submit">Regístrate</Button>
                 </div>
